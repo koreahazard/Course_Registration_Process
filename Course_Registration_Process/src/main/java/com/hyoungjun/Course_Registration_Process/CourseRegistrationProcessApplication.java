@@ -8,8 +8,5 @@ public class CourseRegistrationProcessApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CourseRegistrationProcessApplication.class, args);
-		System.out.println("hello");
 	}
-
-
 }
