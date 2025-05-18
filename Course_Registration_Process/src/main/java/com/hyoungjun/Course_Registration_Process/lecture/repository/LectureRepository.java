@@ -1,6 +1,7 @@
 package com.hyoungjun.Course_Registration_Process.lecture.repository;
 
 import com.hyoungjun.Course_Registration_Process.lecture.dto.requestDto.LectureCreateDto;
+import com.hyoungjun.Course_Registration_Process.lecture.dto.requestDto.LectureModifyDto;
 import com.hyoungjun.Course_Registration_Process.lecture.entity.Lecture;
 import org.springframework.stereotype.Repository;
 
@@ -28,9 +29,26 @@ public class LectureRepository {
         }
         return null;
     }
+    public Long findIndexbyLectureId(Long lectureId) {
+        for (long index = 0; index < lectureList.size(); index++) {
+            if (lectureList.get((int)index).getLectureId().equals(lectureId)) {
+                return index;
+            }
+        }
+        return null;
+    }
+
     public boolean addLecture(LectureCreateDto lectureCreateDto) {
         lectureList.add(new Lecture(lectureCreateDto.getLectureId(),lectureCreateDto.getLectureName()));
         return true;
     }
+    public boolean modifyLecture(Long index,LectureModifyDto lectureModifyDto) {
+        lectureList.set(index.intValue(),new Lecture(lectureModifyDto.getLectureId(),lectureModifyDto.getLectureName()));
+        return true;
+    }
 
+    public boolean removeLecture(Long lectureId) {
+        lectureList.removeIf(lecture -> lecture.getLectureId().equals(lectureId));
+        return true;
+    }
 }

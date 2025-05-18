@@ -1,6 +1,8 @@
 package com.hyoungjun.Course_Registration_Process.lecture.controller;
 
 import com.hyoungjun.Course_Registration_Process.lecture.dto.requestDto.LectureCreateDto;
+import com.hyoungjun.Course_Registration_Process.lecture.dto.requestDto.LectureDeleteDto;
+import com.hyoungjun.Course_Registration_Process.lecture.dto.requestDto.LectureModifyDto;
 import com.hyoungjun.Course_Registration_Process.lecture.entity.Lecture;
 import com.hyoungjun.Course_Registration_Process.lecture.service.LectureService;
 import lombok.RequiredArgsConstructor;
@@ -48,13 +50,22 @@ public class LectureController {
     }
     @PutMapping("/modify")
     public ResponseEntity<String> modifyLecture(@RequestBody LectureModifyDto lectureModifyDto) {
-        return ResponseEntity.status(HttpStatus.MULTI_STATUS).body("modified");
         //만들어보기
+        if(lectureService.modifyLecture(lectureModifyDto)) {
+            return ResponseEntity.status(HttpStatus.OK).body("modified");
+
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("modify failed");
     }
     @DeleteMapping("/delete")
-    public ResponseEntity<String> deleteLecture(@RequestBody String lectureId) {
-        return ResponseEntity.status(HttpStatus.MULTI_STATUS).body("deleted");
-        //만들어보기
+    public ResponseEntity<String> deleteLecture(@RequestBody LectureDeleteDto lectureDelteDto) {
+        if(lectureService.deleteLecture(lectureDelteDto.getLectureId())) {
+            return ResponseEntity.status(HttpStatus.OK).body("deleted");
+
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("delete failed");
+
+
     }
 
 }

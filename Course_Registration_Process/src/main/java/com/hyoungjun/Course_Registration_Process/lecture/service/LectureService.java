@@ -1,6 +1,7 @@
 package com.hyoungjun.Course_Registration_Process.lecture.service;
 
 import com.hyoungjun.Course_Registration_Process.lecture.dto.requestDto.LectureCreateDto;
+import com.hyoungjun.Course_Registration_Process.lecture.dto.requestDto.LectureModifyDto;
 import com.hyoungjun.Course_Registration_Process.lecture.entity.Lecture;
 import com.hyoungjun.Course_Registration_Process.lecture.repository.LectureRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,29 @@ public class LectureService {
         if(Objects.isNull(lecture)) {
             //진짜로 만들고
             lectureRepository.addLecture(lectureCreateDto);
+            return true;
+        }
+        return false;
+    }
+    public boolean modifyLecture(LectureModifyDto lectureModifyDto) {
+        Lecture lecture = lectureRepository.getLectureById(lectureModifyDto.getLectureId());
+
+        if(!(Objects.isNull(lecture))) {
+            Long index = lectureRepository.findIndexbyLectureId(lectureModifyDto.getLectureId());
+            if(index != null) {
+                lectureRepository.modifyLecture(index, lectureModifyDto);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public boolean deleteLecture(Long lectureId) {
+        Lecture lecture = lectureRepository.getLectureById(lectureId);
+
+        if(!(Objects.isNull(lecture))) {
+            //진짜로 만들고
+            lectureRepository.removeLecture(lectureId);
             return true;
         }
         return false;
