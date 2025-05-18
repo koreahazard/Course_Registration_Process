@@ -46,6 +46,15 @@ public class LectureController {
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("rejected");
     }
-
+    @PutMapping("/modify")
+    public ResponseEntity<String> modifyLecture(@RequestBody LectureModifyDto lectureModifyDto) {
+        return ResponseEntity.status(HttpStatus.MULTI_STATUS).body("modified");
+        //만들어보기
+    }
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteLecture(@RequestBody String lectureId) {
+        return ResponseEntity.status(HttpStatus.MULTI_STATUS).body("deleted");
+        //만들어보기
+    }
 
 }
